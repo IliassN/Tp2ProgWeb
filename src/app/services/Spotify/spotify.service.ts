@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { Artist } from '../../../models/artist';
+import { Album } from '../../../models/album';
 
 const CLIENT_ID : string ="710f50140d7347859bd7408e074f963d";
 const CLIENT_SECRET: string = "599f77936e1a456b9b6b2cddd0960eee";
@@ -37,6 +38,22 @@ async searchArtist(artist : string): Promise<Artist> {
   let x = await lastValueFrom(this.http.get<any>('https://api.spotify.com/v1/search?type=artist&offset=0&limit=1&q=' + artist, httpOptions));
   console.log(x);
   return new Artist(x.artists.items[0].id, x.artists.items[0].name, x.artists.items[0].images[0].url);
+}
+
+async getArtistAlbums(artistId: string): Promise<any[]> {
+  const httpOptions = { 
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.spotifyToken
+    })
+  };
+
+  let response = await lastValueFrom(this.http.get<any>(`https://api.spotify.com/v1/artists/${artistId}/albums`, httpOptions));
+  return response.items.map((album: any) => ({
+    id: album.id,
+    name: album.name,
+    imageUrl: album.images[0]?.url
+  }));
 }
 
 }
