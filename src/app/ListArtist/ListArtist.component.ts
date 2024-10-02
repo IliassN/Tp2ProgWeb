@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SpotifyService } from '../services/Spotify/spotify.service';
 import { Artist } from '../../models/artist';
+<<<<<<< HEAD
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+=======
+>>>>>>> 416cddb5144123b9f59052c207126f38e769a81d
 
 @Component({
   selector: 'app-ListArtist',
@@ -22,7 +25,10 @@ export class ListArtistComponent implements OnInit {
    }
 
   ngOnInit():void {
+<<<<<<< HEAD
     this.spotify.connect()
+=======
+>>>>>>> 416cddb5144123b9f59052c207126f38e769a81d
     this.jsonData = localStorage.getItem("artiste");
     if(this.jsonData != null){
       this.artist = JSON.parse(this.jsonData);
@@ -31,7 +37,10 @@ export class ListArtistComponent implements OnInit {
   }
   async getArtist() : Promise<void>{
     this.artist = await this.spotify.searchArtist(this.artistName)
+<<<<<<< HEAD
     
+=======
+>>>>>>> 416cddb5144123b9f59052c207126f38e769a81d
   }
 
 }
