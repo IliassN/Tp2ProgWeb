@@ -16,7 +16,6 @@
     <div class="row">
       <div class="search">
         <h3>Ajouter un artiste</h3>
-<<<<<<< HEAD
       
           <input type="text" [(ngModel)]="artistName" class="form-control" placeholder="Nom d'un artiste">
           <button (click)="getArtist()" class="btn btn-light">Rechercher</button>
@@ -29,20 +28,6 @@
           <!-- Liste d'artistes ajoutés aux favoris -->
           <div>
             <h4>{{ artist.name }}</h4>
-=======
-        <form (ngSubmit)="getArtist()">
-          <input type="text" name="artistName" [(ngModel)]="artist" class="form-control" placeholder="Nom d'un artiste">
-          <button (click)="getArtist()" class="btn btn-light">Rechercher</button>
-        </form>
-      </div>
-      <div class="display">
-        <h3>Vos artistes</h3>
-        <div *ngIf="artist != unedefined" class="row">
-
-          <!-- Liste d'artistes ajoutés aux favoris -->
-          <div>
-            <h4>{{artist.name}}</h4>
->>>>>>> 416cddb5144123b9f59052c207126f38e769a81d
             <img [src]="artist.imageUrl" alt="artist.name">
             <button>Albums</button><button>Concerts</button>
           </div>
