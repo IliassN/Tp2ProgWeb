@@ -5,6 +5,7 @@ import { SpotifyService } from '../services/Spotify/spotify.service';
 import { YouTubeService } from '../services/Youtube/Youtube.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-ListSongs',
@@ -17,8 +18,8 @@ export class ListSongsComponent implements OnInit {
   albumId: string | null = null;
   albumName: string | null = null;
   songs: Song[] = [];
-  selectedVideoId: string | null = null;
-  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private youtubeService: YouTubeService) { }
+  videoId: SafeResourceUrl | null = null;
+  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private youtubeService: YouTubeService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.albumId = this.route.snapshot.paramMap.get('albumId');
@@ -37,8 +38,10 @@ export class ListSongsComponent implements OnInit {
     this.songs = await this.spotifyService.getAlbumTracks(albumId);
   }
 
-  async playSong(song: Song) {
-    const youtubeVideoId = await this.youtubeService.searchSong(song.name, song.artist || '');
-    this.selectedVideoId = youtubeVideoId;
+  playSong(song: Song): void {
+    const searchText = song.name + '' + song.artist;
+    this.youtubeService.searchVideoId(searchText).then(videoId => {
+      this.videoId = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + videoId);
+    });
   }
 }

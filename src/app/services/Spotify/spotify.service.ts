@@ -78,7 +78,7 @@ export class SpotifyService {
     // Utilisez artists au lieu de artist, et vérifiez que artists existe et est un tableau
     return response.items.map((track: any) => {
       const artistName = track.artists && track.artists.length > 0 ? track.artists[0].name : 'Unknown artist';
-      return new Song(track.id, track.name, track.preview_url, track.duration_ms, artistName);
+      return new Song(track.id, track.name, artistName);
     });
   }
 
