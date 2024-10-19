@@ -8,7 +8,7 @@ import { ListSongsComponent } from './ListSongs/ListSongs.component';
 export const routes: Routes = [
     { path: "", redirectTo: "artist", pathMatch: "full" },
     { path: "artiste", component: ListArtistComponent },
-    { path: "album", component: ListAlbumsComponent },
+    { path: "albums/:id", component: ListAlbumsComponent },
     { path: "show", component: ListShowComponent },
     { path: "song", component: ListSongsComponent }
 ];

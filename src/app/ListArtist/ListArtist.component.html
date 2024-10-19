@@ -11,15 +11,15 @@
 </head>
 
 <body>
-  
+
   <main>
     <div class="row">
       <div class="search">
         <h3>Ajouter un artiste</h3>
-      
-          <input type="text" [(ngModel)]="artistName" class="form-control" placeholder="Nom d'un artiste">
-          <button (click)="getArtist()" class="btn btn-light">Rechercher</button>
-      
+
+        <input type="text" [(ngModel)]="artistName" class="form-control" placeholder="Nom d'un artiste">
+        <button (click)="getArtist()" class="btn btn-light">Rechercher</button>
+
       </div>
       <div class="display">
         <h3>Vos artistes</h3>
@@ -29,9 +29,9 @@
           <div>
             <h4>{{ artist.name }}</h4>
             <img [src]="artist.imageUrl" alt="artist.name">
-            <button>Albums</button><button>Concerts</button>
+            <button (click)="goToAlbums()">Albums</button><button>Concerts</button>
           </div>
-          
+
 
         </div>
       </div>
