@@ -23,9 +23,9 @@
       </div>
       <div class="display">
         <h3>Vos artistes</h3>
-        <div *ngFor="let artist of artists" class="row">
+        <div class="row">
           <!-- Liste d'artistes ajoutés aux favoris -->
-          <div>
+          <div *ngFor="let artist of artists">
             <h4>{{ artist.name }}</h4>
             <img [src]="artist.imageUrl" alt="{{ artist.name }}">
             <button (click)="goToAlbums(artist.id)">Albums</button>
