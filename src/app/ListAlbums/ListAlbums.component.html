@@ -22,7 +22,7 @@
           <div *ngFor="let album of albums">
             <h4>{{album.name}}</h4>
             <img [src]="album.imageUrl" alt="{{album.name}}">
-            <button>Chansons</button>
+            <button (click)="goToSongs(album.id)">Chansons</button>
           </div>
 
 

@@ -15,7 +15,8 @@ import { Router } from '@angular/router';
 export class ListArtistComponent implements OnInit {
 
   artistName: string = ""
-  artist?: Artist;
+
+  artists: Artist[] = [];
   jsonData: string | null = null;
 
   constructor(public spotify: SpotifyService, private router: Router) {
@@ -24,20 +25,21 @@ export class ListArtistComponent implements OnInit {
 
   ngOnInit(): void {
     this.spotify.connect()
-    this.jsonData = localStorage.getItem("artiste");
+    this.jsonData = localStorage.getItem("artistes");
     if (this.jsonData != null) {
-      this.artist = JSON.parse(this.jsonData);
+      this.artists = JSON.parse(this.jsonData);
     }
   }
 
   async getArtist(): Promise<void> {
-    this.artist = await this.spotify.searchArtist(this.artistName)
+    const artist = await this.spotify.searchArtist(this.artistName);
+    this.artists.push(artist); // Ajouter le nouvel artiste à la liste
+    // Sauvegarder la liste mise à jour dans le localStorage
+    localStorage.setItem("artistes", JSON.stringify(this.artists));
   }
 
-  async goToAlbums(): Promise<void> {
-    if (this.artist?.id) { // Vérifie que l'artiste et son ID existent
-      await this.router.navigate(['/albums', this.artist.id]); // Utilise this.artist.id pour l'ID
-    }
+  async goToAlbums(artistId: string): Promise<void> {
+    await this.router.navigate(['/albums', artistId]);
   }
 
 }

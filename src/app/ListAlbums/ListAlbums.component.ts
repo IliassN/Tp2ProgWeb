@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SpotifyService } from '../services/Spotify/spotify.service';
 import { Album } from '../../models/album';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-ListAlbums',
@@ -18,7 +18,7 @@ export class ListAlbumsComponent implements OnInit {
   artistId: string = '';
   artistName: string = '';
 
-  constructor(public spotify: SpotifyService, private route: ActivatedRoute) { }
+  constructor(public spotify: SpotifyService, private route: ActivatedRoute, private router: Router) { }
 
   async ngOnInit(): Promise<void> {
     this.spotify.connect();
@@ -36,6 +36,10 @@ export class ListAlbumsComponent implements OnInit {
 
   async getAlbums(): Promise<void> {
     this.albums = await this.spotify.getArtistAlbums(this.artistId);
+  }
+  goToSongs(albumId: string) {
+    // Navigue vers la page des chansons de l'album sélectionné
+    this.router.navigate(['/songs', albumId]);
   }
 
 }

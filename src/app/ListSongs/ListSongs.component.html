@@ -11,67 +11,28 @@
 </head>
 
 <body>
- 
+
   <main>
-    <h3>Chansons de l'album X</h3>
+    <h3>Chansons de l'album {{albumName}}</h3>
     <div class="row">
-      <div class="youtubePlayer">
+      <!-- <div class="youtubePlayer">
         <img src="assets/images/yourubeplayer.png" alt="Youtube player">
-      </div>
-      <div class="songs">
+      </div> -->
+      <div *ngFor="let song of songs" class="songs">
         <div class="songList">
 
           <!-- Liste de chansons d'un album choisi -->
           <div>
-            <p>Chanson 1</p>
-            <button>Jouer</button>
+            <p>{{ song.name }} - {{ song.artist }}</p> <!-- Affichage du nom de l'artiste -->
+            <button (click)="playSong(song)">Jouer</button>
           </div>
-          <div>
-            <p>Chanson 2</p>
-            <button>Jouer</button>
-          </div>
-          <div>
-            <p>Chanson 3</p>
-            <button>Jouer</button>
-          </div>
-          <div>
-            <p>Chanson 4</p>
-            <button>Jouer</button>
-          </div>
-          <div>
-            <p>Chanson 5</p>
-            <button>Jouer</button>
-          </div>
-          <div>
-            <p>Chanson 6</p>
-            <button>Jouer</button>
-          </div>
-          <div>
-            <p>Chanson 7</p>
-            <button>Jouer</button>
-          </div>
-          <div>
-            <p>Chanson 8</p>
-            <button>Jouer</button>
-          </div>
-          <div>
-            <p>Chanson 9</p>
-            <button>Jouer</button>
-          </div>
-          <div>
-            <p>Chanson 10</p>
-            <button>Jouer</button>
-          </div>
-          <div>
-            <p>Chanson 11</p>
-            <button>Jouer</button>
-          </div>
+
 
         </div>
       </div>
     </div>
   </main>
-  
+
 </body>
 
 </html>

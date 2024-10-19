@@ -3,9 +3,11 @@ import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { Artist } from '../../../models/artist';
 import { Album } from '../../../models/album';
+import { Song } from '../../../models/song';
 
-const CLIENT_ID : string ="710f50140d7347859bd7408e074f963d";
+const CLIENT_ID: string = "710f50140d7347859bd7408e074f963d";
 const CLIENT_SECRET: string = "599f77936e1a456b9b6b2cddd0960eee";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,47 +15,82 @@ const CLIENT_SECRET: string = "599f77936e1a456b9b6b2cddd0960eee";
 
 export class SpotifyService {
 
-  spotifyToken : string | null = null;
+  spotifyToken: string | null = null;
 
-constructor(public http: HttpClient) { }
-async connect(): Promise<void> {
-  let body = new HttpParams().set('grant_type', 'client_credentials');
-  let httpOptions = {
-    headers: new HttpHeaders({
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Authorization': 'Basic ' + btoa(CLIENT_ID + ':' + CLIENT_SECRET)
-    })
-  };
-  let x = await lastValueFrom(this.http.post<any>('https://accounts.spotify.com/api/token', body.toString(), httpOptions));
-  console.log(x);
-  this.spotifyToken = x.access_token;
-}
+  constructor(public http: HttpClient) { }
+  async connect(): Promise<void> {
+    let body = new HttpParams().set('grant_type', 'client_credentials');
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic ' + btoa(CLIENT_ID + ':' + CLIENT_SECRET)
+      })
+    };
+    let x = await lastValueFrom(this.http.post<any>('https://accounts.spotify.com/api/token', body.toString(), httpOptions));
+    console.log(x);
+    this.spotifyToken = x.access_token;
+  }
 
-async searchArtist(artist : string): Promise<Artist> {
-  const httpOptions = { headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Authorization': 'Bearer ' + this.spotifyToken
-  })};
-  
-  let x = await lastValueFrom(this.http.get<any>('https://api.spotify.com/v1/search?type=artist&offset=0&limit=1&q=' + artist, httpOptions));
-  console.log(x);
-  return new Artist(x.artists.items[0].id, x.artists.items[0].name, x.artists.items[0].images[0].url);
-}
+  async searchArtist(artist: string): Promise<Artist> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.spotifyToken
+      })
+    };
 
-async getArtistAlbums(artistId: string): Promise<any[]> {
-  const httpOptions = { 
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.spotifyToken
-    })
-  };
+    let x = await lastValueFrom(this.http.get<any>('https://api.spotify.com/v1/search?type=artist&offset=0&limit=1&q=' + artist, httpOptions));
+    console.log(x);
+    return new Artist(x.artists.items[0].id, x.artists.items[0].name, x.artists.items[0].images[0].url);
+  }
 
-  let response = await lastValueFrom(this.http.get<any>(`https://api.spotify.com/v1/artists/${artistId}/albums`, httpOptions));
-  return response.items.map((album: any) => ({
-    id: album.id,
-    name: album.name,
-    imageUrl: album.images[0]?.url
-  }));
-}
+  async getArtistAlbums(artistId: string): Promise<any[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.spotifyToken
+      })
+    };
 
+    let response = await lastValueFrom(this.http.get<any>(`https://api.spotify.com/v1/artists/${artistId}/albums`, httpOptions));
+    return response.items.map((album: any) => ({
+      id: album.id,
+      name: album.name,
+      imageUrl: album.images[0]?.url
+    }));
+  }
+
+  async getAlbumTracks(albumId: string): Promise<Song[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.spotifyToken
+      })
+    };
+
+    let response = await lastValueFrom(this.http.get<any>(`https://api.spotify.com/v1/albums/${albumId}/tracks`, httpOptions));
+
+    // Vérifiez que response.items existe et est un tableau
+    if (!response.items || !Array.isArray(response.items)) {
+      throw new Error("Invalid response: No tracks found");
+    }
+
+    // Utilisez artists au lieu de artist, et vérifiez que artists existe et est un tableau
+    return response.items.map((track: any) => {
+      const artistName = track.artists && track.artists.length > 0 ? track.artists[0].name : 'Unknown artist';
+      return new Song(track.id, track.name, track.preview_url, track.duration_ms, artistName);
+    });
+  }
+
+  async getAlbumDetails(albumId: string): Promise<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.spotifyToken
+      })
+    };
+
+    let response = await lastValueFrom(this.http.get<any>(`https://api.spotify.com/v1/albums/${albumId}`, httpOptions));
+    return { name: response.name }; // Renvoie seulement le nom de l'album
+  }
 }
