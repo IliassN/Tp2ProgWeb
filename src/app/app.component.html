@@ -1,16 +1,16 @@
 <header>
   <div class="row">
     <nav class="row">
-      <div [routerLink]="['/artiste']">Artiste</div>
-      <!-- <div [routerLink]="['/album']">Albums</div>
-      <div [routerLink]="['/song']">Chansons</div>
-      <div [routerLink]="['/show']">Concerts</div> -->
+      <div [routerLink]="['/artiste']">{{ 'ARTISTE' | translate }}</div>
+      <div [routerLink]="['/album']">{{ 'ALBUMS' | translate }}</div>
+      <div [routerLink]="['/song']">{{ 'SONGS' | translate }}</div>
+      <div [routerLink]="['/show']">{{ 'CONCERTS' | translate }}</div>
     </nav>
     <div class="spacer"></div>
     <div>
-      <select name="language" id="language">
-        <option value="fr-ca">Français</option>
-        <option value="en-us">English</option>
+      <select name="language" id="language" (change)="changeLanguage($event)">
+        <option value="fr">Français</option>
+        <option value="en">English</option>
       </select>
     </div>
   </div>
@@ -20,6 +20,6 @@
 </main>
 <footer>
   <div>
-    &copy; Tous droits réservés à Spotify, BandsInTown et Google
+    &copy; {{ 'COPYRIGHT' | translate }}
   </div>
 </footer>

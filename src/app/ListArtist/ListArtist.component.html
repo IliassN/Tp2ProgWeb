@@ -1,28 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-
-
-
 <body>
 
   <main>
     <div class="row">
       <div class="search">
-        <h3>Ajouter un artiste</h3>
+        <h3>{{ 'ADD_ARTIST' | translate }}</h3>
 
-        <input type="text" [(ngModel)]="artistName" class="form-control" placeholder="Nom d'un artiste">
-        <button (click)="getArtist()" class="btn btn-light">Rechercher</button>
+        <input type="text" [(ngModel)]="artistName" class="form-control" placeholder="{{ 'SEARCH' | translate }}">
+        <button (click)="getArtist()" class="btn btn-light">{{ 'SEARCH' | translate }}</button>
 
       </div>
       <div class="display">
-        <h3>Vos artistes</h3>
+        <h3>{{ 'YOUR_ARTISTS' | translate }}</h3>
         <div class="row">
           <!-- Liste d'artistes ajoutés aux favoris -->
           <div *ngFor="let artist of artists">
             <h4>{{ artist.name }}</h4>
             <img [src]="artist.imageUrl" alt="{{ artist.name }}">
-            <button (click)="goToAlbums(artist.id)">Albums</button>
-            <button (click)="goToConcerts(artist.name)">Concerts</button>
+            <button (click)="goToAlbums(artist.id)">{{ 'ALBUMS' | translate }}</button>
+            <button (click)="goToConcerts(artist.name)">{{ 'CONCERTS' | translate }}</button>
           </div>
         </div>
       </div>
@@ -30,5 +25,3 @@
   </main>
 
 </body>
-
-</html>

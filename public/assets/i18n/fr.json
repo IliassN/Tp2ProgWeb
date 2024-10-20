@@ -1,0 +1,14 @@
+{
+    "ARTISTE": "Artiste",
+    "ADD_ARTIST": "Ajouter un artiste",
+    "SEARCH": "Rechercher",
+    "YOUR_ARTISTS": "Vos artistes",
+    "ALBUMS": "Albums",
+    "CONCERTS": "Concerts",
+    "ALBUMS_OF": "Albums de l'artiste {{artistName}}",
+    "SONGS": "Chansons",
+    "SONGS_OF": "Chansons de l'album {{albumName}}",
+    "PLAY": "Jouer",
+    "CONCERTS_OF": "Concerts de {{artistName}}",
+    "COPYRIGHT": "Tous droits réservés à Spotify, BandsInTown et Google"
+}

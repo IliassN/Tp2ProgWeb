@@ -6,13 +6,14 @@ import { YouTubeService } from '../services/Youtube/Youtube.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-ListSongs',
   standalone: true,
   templateUrl: './ListSongs.component.html',
   styleUrls: ['./ListSongs.component.css'],
-  imports: [FormsModule, RouterModule, CommonModule]
+  imports: [FormsModule, RouterModule, CommonModule, TranslateModule]
 })
 export class ListSongsComponent implements OnInit {
   albumId: string | null = null;

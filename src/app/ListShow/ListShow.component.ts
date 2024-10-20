@@ -4,6 +4,7 @@ import { ConcertsService } from '../services/Concerts/concerts.service';
 import { CommonModule } from '@angular/common';
 import { SpecialPipe } from '../pipes/special.pipe';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { TranslateModule } from '@ngx-translate/core';
 
 declare var google: any;
 
@@ -13,7 +14,7 @@ declare var google: any;
   standalone: true,
   templateUrl: './ListShow.component.html',
   styleUrls: ['./ListShow.component.css'],
-  imports: [CommonModule, SpecialPipe, GoogleMapsModule]
+  imports: [CommonModule, SpecialPipe, GoogleMapsModule, TranslateModule]
 
 
 })

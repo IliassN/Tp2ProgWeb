@@ -1,23 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-
-
-
 <body>
 
   <main>
     <div class="row">
       <div class="albums">
-        <h3>Albums de l'artiste {{ artistName }}</h3>
+        <h3>{{ 'ALBUMS_OF' | translate: { artistName: artistName } }}</h3>
         <div class="row">
 
           <!-- Liste d'albums d'un artiste choisi -->
           <div *ngFor="let album of albums">
-            <h4>{{album.name}}</h4>
-            <img [src]="album.imageUrl" alt="{{album.name}}">
-            <button (click)="goToSongs(album.id)">Chansons</button>
+            <h4>{{ album.name }}</h4>
+            <img [src]="album.imageUrl" alt="{{ album.name }}">
+            <button (click)="goToSongs(album.id)">{{ 'SONGS' | translate }}</button>
           </div>
-
 
         </div>
       </div>
@@ -25,5 +19,3 @@
   </main>
 
 </body>
-
-</html>
