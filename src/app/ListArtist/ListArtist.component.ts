@@ -42,4 +42,8 @@ export class ListArtistComponent implements OnInit {
     await this.router.navigate(['/albums', artistId]);
   }
 
+  async goToConcerts(artistName: string): Promise<void> {
+    await this.router.navigate(['/concerts', artistName]);
+  }
+
 }
